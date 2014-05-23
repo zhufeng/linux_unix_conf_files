@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='D:\Users\zhufeng\Desktop'
+let g:netrw_dirhist_2='D:/Users/zhufeng'
+let g:netrw_dirhist_3='D:\Users\zhufeng\Desktop'
+let g:netrw_dirhist_4='G:\常用软件\gVimPortable\vim\vim73'
+let g:netrw_dirhist_5='G:\常用软件\gVimPortable\vim\vimfiles\doc'
+let g:netrw_dirhist_6='D:\常用软件\gVimPortable\vim'
