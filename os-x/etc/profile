@@ -1,0 +1,72 @@
+# System-wide .profile for sh(1)
+
+if [ -x /usr/libexec/path_helper ]; then
+	eval `/usr/libexec/path_helper -s`
+fi
+
+if [ "${BASH-no}" != "no" ]; then
+	[ -r /etc/bashrc ] && . /etc/bashrc
+fi
+
+
+set -o vi
+
+#for color 
+export CLICOLOR=1
+#grep
+alias grep='grep --color=always'
+#perl
+alias perl='perl -W'
+
+alias ll='ls -la'
+
+
+# Returncode function.
+function returncode
+{
+  returncode=$?
+  if [ $returncode != 0 ]; then
+    echo "[$returncode]"
+  else
+    echo ""
+  fi
+}
+
+# Set colorful PS1, root user will be red and non-root user will be green
+if [[ ${EUID} == 0 ]] ; then
+	PS1='\[\033[0;31m\]$(returncode)\[\033[0;37m\]\[\033[0;35m\]${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\h\[\033[01;34m\] \W \$\[\033[00m\] '
+else
+	PS1='\[\033[0;31m\]$(returncode)\[\033[0;37m\]\[\033[0;35m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[01;34m\] \w \$\[\033[00m\] '
+fi
+
+
+# set jdk environment 
+# export JAVA_HOME=/usr/local/src/jdk1.6.0_24/
+# export PATH=$JAVA_HOME/bin:$PATH
+# export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+
+# set PATH for adb and android sdk folder
+export PATH=/Volumes/cm/bin:/Volumes/cm/android-sdk-macosx/platform-tools:/Volumes/cm/android-sdk-macosx/tools:/Volumes/cm/android-sdk-macosx/build-tools/19.0.3:$PATH
+
+# set PATH for arm-linux-gcc eabi 4.7
+export CM11=/Volumes/cm/cm11
+export PATH=$CM11/prebuilts/gcc/darwin-x86/arm/arm-linux-androideabi-4.7/bin:$PATH
+# export PATH=$CM11/prebuilts/gcc/darwin-x86/arm/arm-eabi-4.7/bin:$PATH
+
+# export compile-stuttgart-kernel-only varies
+export ARCH=arm
+export SUBARCH=arm
+export CROSS_COMPILE=arm-linux-androideabi- 
+# export CROSS_COMPILE=arm-eabi- 
+
+export USE_CCACHE=1
+export BUILD_MAC_SDK_EXPERIMENTAL=1
+# export LC_CTYPE=C 
+# export LANG=C
+
+export LANG=zh_CN.UTF-8
+
+# export BOARD_KERNEL_IMAGE_NAME=uImage
+
+
+# export PATH='/usr/local/bin:$PATH'

@@ -1,7 +1,13 @@
-vimrc
+Linux/Unix conf files collection by zhufeng
 =====
 
-vimrc and vimfiles folder for vim/gvim on linux/unix/os x/windows , zhufeng's mod
+Collection of linux/unix conf files created and modified by zhufeng.
+
+收集自用的linux/unix配置文件。
+
+linux/os x
+
+vim/tmux/bashrc/profile...
 
 
-2014年 05月 23日 星期五 14:39:59 CST
+2014年 8月26日 星期二 00时15分34秒 CST

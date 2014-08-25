@@ -2,8 +2,8 @@
 "
 "  Language:     Vim 7.0+ vimrc script 	
 "  Maintainer:	 zhufeng  < Iwantcomputer@gmail.com >
-"  Last Change:	 2012-10-21 15:14:15
-"  Version:		 1.5.5
+"  Last Change:	 2014-07-20 01:25:41
+"  Version:		 1.5.6
 "  Remark:       vimrc, vim配置文件
 "  License:      This file is placed in the public domain.
 "
@@ -12,17 +12,30 @@
 "				Windows/Linux/Unix/Mac
 "				GUI/Shell/Console
 "
-"  Tip: 
+"  Tips: 
 "	  1.在Windows平台下使用此_vimrc文件时，请用vim打开它，
-"	    并设置 :set ff=dos回车并保存。
-"	  2.在非Windows平台下使用时，设置 :set ff=unix回车并保存。
+"	    并设置 :set ff=dos 和 :set fenc=cp936，回车并保存并重启vim。
+"
+"	    When using this vimrc file in Windows, please set 
+"	    :set ff=dos and :set fenc=cp936, then save it and restart vim.
+"
+"	  2.在非Windows平台(Linux/Unix/Mac OS X)下使用时，
+"		设置 :set ff=unix 和 :set fenc=utf8，回车并保存并重启vim。
 "	    此项设置为修正此vimrc文件编码使vim正常工作。
-"	  3.此vimrc文件在Windws 7 x64平台上使用gvim通过严格测试，
-"	    同时在RHEL x64的vim, gvim和Mac OS X Lion的vim, MacVim
-"	    通过基本测试。若有bug欢迎邮件联系。
+"
+"	    When using this vimrc file in Linux/Unix/Mac OS X, please set 
+"	    :set ff=unix and :set fenc=utf8, then save it and restart vim.
+"
+"	  3.此vimrc文件在Windws 7 x64平台上使用gvim x86/x64通过使用测试，
+"	    同时在RHEL/LMDE/Ubuntu x64的vim/gvim，IBM AIX的自编译vim7.3，
+"	    以及Mac OS X Lion/Mavericks的vim, MacVim 通过基本测试。
+"	    若发现bug欢迎邮件联系。
+"
 "	  4.关于各不同平台vimrc文件存放位置，参考 :help vimrc。
+"
 "	  5.本文件中<Leader>全部使用<L>代替
-"	  6.当前版本此文件行数：420行
+"
+"	  6.当前版本此文件行数：473行
 "
 """"""""""""""""""""""""""""""""""""""""""""""
 
@@ -92,13 +105,13 @@ if has("gui_running")  "若以gvim(带GUI)形式运行
 		"设置窗口的大小
 		"set lines=46
 		"set columns=157
-		set transparency=20  "设置透明，0-100之间
+		set transparency=20  "MacVim自带透明功能，0-100之间
 		set guifont=Monaco:h16 "设置字体
 		"set guifont=dejaVu\ Sans\ MONO:h16  "设置字体
 		colorscheme molokai  "设置配色方案
 		"colorscheme desert  
 		"colorscheme slate 
-		set go=TRrgme "设置MacVim专有的显示工具栏及右滚动条
+		set go=TRrgme "设置MacVim专有的漂亮工具栏及右滚动条
 
 		"因mac也属于unix，故要先判断系统是否MacOS,
 		"不是mac之后再用elseif判断是否unix
@@ -114,7 +127,7 @@ if has("gui_running")  "若以gvim(带GUI)形式运行
 		colorscheme molokai  "设置配色方案
 		"colorscheme desert
 		"colorscheme slate
-		set go=e
+		set go=e  "隐藏菜单栏/工具栏/左右滚动条
 
 		"解决Linux gvim菜单乱码  
 		set langmenu=zh_CN.UTF-8
@@ -133,7 +146,9 @@ if has("gui_running")  "若以gvim(带GUI)形式运行
 	"以无gui方式即shell下运行vim时的颜色，
 	"因shell下无法调整字体，故不需设置字体
 else
-	colorscheme evening
+	colorscheme desert
+	"colorscheme evening
+	"colorscheme peachpuff
 	"colorscheme slate
 	"colorscheme solarized
 endif
@@ -162,7 +177,7 @@ set backupcopy=yes " 设置备份时的行为为覆盖
 
 " 搜索时忽略大小写，但在有一个或以上大写字母时仍区分大小写
 set ignorecase smartcase 
-set nowrapscan " 禁止在搜索到文件两端时重新搜索
+set wrapscan " 在搜索到文件两端时重新搜索
 set incsearch " 输入搜索内容时就显示搜索结果
 set hlsearch " 搜索时高亮显示被找到的文本
 
@@ -228,7 +243,7 @@ map <F2> :silent !ctags -R -f ectags *.*<CR>:set tags=ectags<CR>
 nmap <C-F2> :tabnew $MYVIMRC<CR>
 
 "F12键删除所有行未尾空格
-"nmap <F12> :%s,\s\+$,,g<CR>
+nmap <F12> :%s,\s\+$,,g<CR>
 
 "上下方向键可在由长行分割成的多行短行间上下移动
 nmap <Up> gk
