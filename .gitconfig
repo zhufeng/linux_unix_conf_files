@@ -1,0 +1,13 @@
+[user]
+	name = zhufeng
+	email = iwantcomputer@gmail.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[color]
+	ui = true
+[format]
+	pretty = oneline
+[push]
+	default = simple
