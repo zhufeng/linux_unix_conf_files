@@ -1,8 +1,0 @@
-# UNCONFIGURED FSTAB FOR BASE SYSTEM
-proc	/proc	proc	defaults	0	0
-# /dev/sda1
-UUID=62c7c25c-ce9c-44e8-bef6-0451806cd14a	/	ext4	rw,errors=remount-ro	0	1
-# /dev/sda2
-UUID=2c8d768f-d57f-44d8-b0d2-bd22d67b7ae7	swap	swap	sw	0	0
-/dev/sdb	/home/cm	ext4	defaults	0	0
-# /dev/sdc1	/home/cm/exchange	ext4	defaults	0	0

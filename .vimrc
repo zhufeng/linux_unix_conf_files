@@ -177,7 +177,7 @@ set backupcopy=yes " 设置备份时的行为为覆盖
 
 " 搜索时忽略大小写，但在有一个或以上大写字母时仍区分大小写
 set ignorecase smartcase 
-set wrapscan " 在搜索到文件两端时重新搜索
+set nowrapscan " 在搜索到文件两端时重新搜索
 set incsearch " 输入搜索内容时就显示搜索结果
 set hlsearch " 搜索时高亮显示被找到的文本
 

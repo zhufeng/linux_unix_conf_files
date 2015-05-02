@@ -1,19 +1,29 @@
-# System-wide .bashrc file for interactive bash(1) shells.
-
-# To enable the settings / commands in this file for login shells as well,
-# this file has to be sourced in /etc/profile.
+#
+# /etc/bash.bashrc
+#
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+[[ $- != *i* ]] && return
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+PS1='[\u@\h \W]\$ '
+PS2='> '
+PS3='> '
+PS4='+ '
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
+case ${TERM} in
+  xterm*|rxvt*|Eterm|aterm|kterm|gnome*)
+    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+
+    ;;
+  screen)
+    PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
+    ;;
+esac
+
+[ -r /usr/share/bash-completion/bash_completion   ] && . /usr/share/bash-completion/bash_completion
+
+
+
 
 #------------------------------------------------------------------------------
 # Returncode.
@@ -27,8 +37,6 @@ function returncode
     echo ""
   fi
 }
-
-alias ll='ls -al'
 
 use_color=false
 
@@ -80,49 +88,11 @@ else
         fi
 fi
 
-# Try to keep environment pollution down, EPA loves us.
-unset use_color safe_term match_lhs
-
-# Commented out, don't overwrite xterm -T "title" -n "icontitle" by default.
-# If this is an xterm set the title to user@host:dir
-#case "$TERM" in
-#xterm*|rxvt*)
-#    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
-#    ;;
-#*)
-#    ;;
-#esac
-
-# enable bash completion in interactive shells
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-# if the command-not-found package is installed, use it
-if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found/command-not-found ]; then
-	function command_not_found_handle {
-	        # check because c-n-f could've been removed in the meantime
-                if [ -x /usr/lib/command-not-found ]; then
-		   /usr/bin/python /usr/lib/command-not-found -- "$1"
-                   return $?
-                elif [ -x /usr/share/command-not-found/command-not-found ]; then
-		   /usr/bin/python /usr/share/command-not-found/command-not-found -- "$1"
-                   return $?
-		else
-		   printf "%s: command not found\n" "$1" >&2
-		   return 127
-		fi
-	}
-fi
-/usr/bin/mint-fortune
-
 
 set -o vi
 alias ll='ls -la'
+alias lt='ls -lrt'
+alias dus='du -sm * | sort -n'
 alias update-grub='grub-mkconfig -o /boot/grub/grub.cfg'
 export PATH=/sbin:$PATH
 
@@ -133,15 +103,18 @@ export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 
 
 # set PATH for adb and android sdk folder
-export PATH=/home/cm/:/home/cm/android-sdk-linux/tools/:/home/cm/android-sdk-linux/platform-tools/:/home/cm/android-sdk-linux/build-tools/19.1.0:$PATH
+# export PATH=/home/cm/bin:/home/cm/android-sdk-linux/tools/:/home/cm/android-sdk-linux/platform-tools/:/home/cm/android-sdk-linux/build-tools/19.1.0:$PATH
 
 # set PATH for arm-linux-gcc eabi 4.6
-export CM11=/home/cm/cm11
-export PATH=$CM11/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
+# export CM11=/home/cm/cm11
+# export PATH=$CM11/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin:$PATH
 
 # export PATH=$PATH:/media/cm-k860i/arm-eabi-4.6/bin:$PATH
-export ARCH=arm
-export SUBARCH=arm
-export CROSS_COMPILE=arm-eabi- 
+# export ARCH=arm
+# export SUBARCH=arm
+# export CROSS_COMPILE=arm-eabi- 
 
-export BOARD_KERNEL_IMAGE_NAME=uImage
+
+#
+# End of /etc/bash.bashrc
+#
