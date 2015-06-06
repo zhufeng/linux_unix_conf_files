@@ -2,8 +2,8 @@
 "
 "  Language:     Vim 7.0+ vimrc script 	
 "  Maintainer:	 zhufeng  < Iwantcomputer@gmail.com >
-"  Last Change:	 2014-07-20 01:25:41
-"  Version:		 1.5.6
+"  Last Change:	 2015-06-06 Sat 15:08:52 CST
+"  Version:		 1.5.7
 "  Remark:       vimrc, vim配置文件
 "  License:      This file is placed in the public domain.
 "
@@ -35,7 +35,7 @@
 "
 "	  5.本文件中<Leader>全部使用<L>代替
 "
-"	  6.当前版本此文件行数：473行
+"	  6.当前版本此文件行数：474行
 "
 """"""""""""""""""""""""""""""""""""""""""""""
 
@@ -54,6 +54,7 @@ set cursorline " 高亮显示当前行
 set ruler " 打开状态栏标尺
 " 当缓冲区被放弃 (abandon) 时不卸载之
 set hidden 
+set clipboard+=unnamed  "gvim时与系统共享剪贴板
 
 "设置界面超简洁模式，无菜单，工具栏，无所有滚动条
 "采用vim样式标签栏而不用系统gui式标签栏，以免白色刺眼
@@ -237,7 +238,7 @@ endif
 "F2键使用ctags自动生成当前目录及子目录下所有源文件的tags，
 "生成所有源文件的tag文件名称为ectags，以方便清理这些tag文件
 "生成好之后设置vim的目标tags文件为当前目录下刚自动生成的ectags文件
-map <F2> :silent !ctags -R -f ectags *.*<CR>:set tags=ectags<CR>
+" map <F2> :silent !ctags -R -f ectags *.*<CR>:set tags=ectags<CR>
 
 "Ctrl+F2打开新标签页编辑_vimrc文件
 nmap <C-F2> :tabnew $MYVIMRC<CR>
