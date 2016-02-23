@@ -94,7 +94,10 @@ alias ll='ls -la'
 alias lt='ls -lrt'
 alias dus='du -sm * | sort -n'
 alias update-grub='grub-mkconfig -o /boot/grub/grub.cfg'
+alias C='export LANG=C'
 export PATH=/sbin:$PATH
+export LANG="en_US.utf8"
+export LANGUAGE="zh_CN.utf8:en_US.utf8:en"
 
 # set jdk environment 
 export JAVA_HOME=/usr/local/src/jdk1.6.0_24/
