@@ -5,9 +5,10 @@ Collection of linux/unix conf files created and modified by zhufeng.
 
 收集自用的linux/unix配置文件。
 
-linux/os x
+linux/osx
 
 vim/tmux/bashrc/profile...
 
 
-2015年 05月 02日 星期六 18:14:28 CST
+
+2018年 05月 16日 星期三 15:18:36 CST
