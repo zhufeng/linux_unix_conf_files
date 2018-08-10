@@ -2,8 +2,8 @@
 "
 "  Language:     Vim 7.0+ vimrc script 	
 "  Maintainer:	 zhufeng  < Iwantcomputer@gmail.com >
-"  Last Change:	 2015-06-06 Sat 15:08:52 CST
-"  Version:		 1.5.7
+"  Last Change:	 Fri Aug 10 15:27:42 CST 2018
+"  Version:		 1.6.0
 "  Remark:       vimrc, vim配置文件
 "  License:      This file is placed in the public domain.
 "
@@ -72,20 +72,6 @@ set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\%0(%{&fileformat}\ %{&encoding}\:%{&f
 "set tabline=%{tabpagenr()}.%t\ %m
 set guitablabel=[%{tabpagenr()}]\ %t\ %m
 
-" 各种文件格式omni自动补全
-if has("autocmd")
-	autocmd FileType c set omnifunc=ccomplete#Complete
-	autocmd FileType cpp set omnifunc=cppcomplete#Complete
-	autocmd Filetype java set omnifunc=javacomplete#Complete
-	autocmd FileType python set omnifunc=pythoncomplete#Complete
-	autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-	autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-endif
-
-set completefunc=javacomplete#CompleteParamsInfo
 " inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P>
 " inoremap <buffer> <C-S-Space> <C-X><C-U><C-P>
 
@@ -147,7 +133,8 @@ if has("gui_running")  "若以gvim(带GUI)形式运行
 	"以无gui方式即shell下运行vim时的颜色，
 	"因shell下无法调整字体，故不需设置字体
 else
-	colorscheme desert
+	" colorscheme desert
+	" colorscheme shine
 	"colorscheme evening
 	"colorscheme peachpuff
 	"colorscheme slate
@@ -214,9 +201,48 @@ set cindent shiftwidth=4    "设置C语言的自动缩进为4个空格
 
 " 显示Tab符
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<
+
+"源代码文件显示不需要的空格 
+highlight BadWhitespace ctermbg=red guibg=darkred
+autocmd BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" 各种文件格式omni自动补全
 if has("autocmd")
-	autocmd filetype javascript,php,python set list
+	autocmd FileType c setlocal omnifunc=ccomplete#Complete
+	autocmd FileType cpp setlocal omnifunc=cppcomplete#Complete
+	autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete list
+	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS list
+	autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags list
+	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+	autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP list
 endif
+
+"for python
+autocmd BufNewFile,BufRead *.py
+			\ setlocal tabstop=4		|
+			\ setlocal softtabstop=4	|
+			\ setlocal shiftwidth=4		|
+			\ setlocal textwidth=79		|
+			\ setlocal expandtab		
+
+" <L>H来切换高亮显示大于80列的部分
+nnoremap <Leader>H :call<SID>LongLineHLToggle()<cr>
+hi OverLength ctermbg=none cterm=none
+match OverLength /\%>80v/
+fun! s:LongLineHLToggle()
+	if !exists('w:longlinehl')
+		let w:longlinehl = matchadd('ErrorMsg', '.\%>80v', 0)
+		echo "Long lines highlighted"
+	else
+		call matchdelete(w:longlinehl)
+		unl w:longlinehl
+		echo "Long lines unhighlighted"
+	endif
+endfunction
+
+" set completefunc=javacomplete#CompleteParamsInfo
 
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -287,6 +313,7 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 "设置映射ctrl+F5编译运行当前打开的程序源文件
 "调用自定义的函数来实现该功能
 map <C-F5> :call CompileRun() <CR>
+map <Leader>L :call CompileRun() <CR>
 
 "定义CompileRun函数，用来调用进行编译和运行程序源文件
 function! CompileRun()
@@ -357,6 +384,13 @@ function! CompileRun()
 		else
 			exec "!perl -W %<.pl"
 		endif
+		exec "cw"
+
+		"Python程序
+		"python2/python3
+	elseif &filetype == 'python'
+		exec "!python %"
+		" exec "!python3 %"
 		exec "cw"
 
 		"LaTex文件
