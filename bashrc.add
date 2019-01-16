@@ -1,0 +1,27 @@
+
+#### add by zhufeng ####
+
+set -o vi
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+alias ls='ls --color=auto'
+alias ll='ls -la'
+alias lt='ls -lrt'
+
+alias dus='du -sm * | sort -n'
+alias vi='vim'
+alias 7za='7z'
+
+alias yumn='yum --noplugins --disablerepo=epel,rhel-* '
+alias C='export LANG=C'
+
+# PS1 user color, root[red]/other[green]
+if [ $(id -u) -eq 0 >/dev/null  2>&1 ]; 
+then
+	PS1="[\[\e[31;4m\]\u\[\e[0m\]@\[\e[36;4m\]\h \[\e[34;4m\]\w\[\e[0m\]]\\$ "
+else
+	PS1="[\[\e[32;4m\]\u\[\e[0m\]@\[\e[36;4m\]\h \[\e[34;4m\]\w\[\e[0m\]]\\$ "
+fi
+
+#### end of add by zhufeng ####
