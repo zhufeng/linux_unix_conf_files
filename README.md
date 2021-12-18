@@ -11,9 +11,10 @@ Linux/Unix conf files collection by zhufeng
 - tmux
 - bashrc
 - profile
+- gitconfig
 - ...
 
 ---
 `
-2019年 01月 16日 星期三 10:22:33 CST
+Sat Dec 18 23:59:29 CST 2021
 `

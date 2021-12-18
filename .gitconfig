@@ -1,13 +1,42 @@
 [user]
+	email = xxx@xxx.com
 	name = zhufeng
-	email = iwantcomputer@qq.com
+	signingkey = GPGKEYID
+[commit]
+	gpgsign = true
 [core]
 	editor = vim
 [merge]
 	tool = vimdiff
-[color]
-	ui = true
 [format]
 	pretty = oneline
-[push]
-	default = simple
+[gpg]
+	program = gpg2
+[pager]
+	branch = false
+	log = true
+	diff = true
+	commit = true
+	show = true
+[alias]
+	logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[color]
+	ui = true
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	pager = true
+; [color "branch"]
+	; current = yellow reverse
+	; local = yellow
+	; remote = green
+; [color "diff"]
+	; meta = yellow bold
+	; frag = magenta bold
+	; old = red bold
+	; new = green bold
+; [color "status"]
+	; added = yellow
+	; changed = green
+	; untracked = cyan
