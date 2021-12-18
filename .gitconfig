@@ -5,9 +5,9 @@
 [commit]
 	gpgsign = true
 [core]
-	editor = vim
+	; editor = vim
 [merge]
-	tool = vimdiff
+	; tool = vimdiff
 [format]
 	pretty = oneline
 [gpg]
@@ -16,12 +16,12 @@
 	branch = false
 	log = true
 	diff = true
-	commit = true
+	commit = false
 	show = true
 [alias]
 	logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [color]
-	ui = true
+	ui = auto
 	diff = auto
 	status = auto
 	branch = auto
